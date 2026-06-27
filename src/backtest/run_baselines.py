@@ -47,7 +47,8 @@ def main() -> None:
         curves["BuyHold " + sym] = bh
 
         sma = baselines.sma_crossover(price)
-        rows.append(("SMA " + sym, metrics.summary(metrics.to_returns(sma))))
+        rows.append(("SMA-gross " + sym, metrics.summary(metrics.to_returns(sma["gross"]))))
+        rows.append(("SMA-net " + sym, metrics.summary(metrics.to_returns(sma["net"]))))
         # (curves for SMA omitted from the plot to keep it readable)
 
     # Equal-weight basket across all coins

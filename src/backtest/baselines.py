@@ -34,23 +34,29 @@ def equal_weight(price_dict: dict[str, pd.Series]) -> pd.Series:
 
 
 def sma_crossover(
-    prices: pd.Series, short_window: int = 20, long_window: int = 50
-) -> pd.Series:
-    """Moving-average crossover trend-following strategy.
+    prices: pd.Series,
+    short_window: int = 20,
+    long_window: int = 50,
+    fee_bps: float = 10.0,
+    slippage_bps: float = 5.0,
+) -> dict[str, pd.Series]:
+    """Moving-average crossover, returning BOTH gross and net equity curves.
 
-    Position is 1 (invested) when the short SMA is above the long SMA,
-    else 0 (in cash). The signal is LAGGED by one day so we only act on
-    information available before the day we trade.
+    Position is 1 (invested) when short SMA > long SMA, else 0 (cash),
+    lagged one day to avoid look-ahead. Net curve charges transaction costs
+    on every change in position.
+
+    Returns a dict: {"gross": curve, "net": curve}.
     """
+    from src.backtest.costs import apply_costs
+
     short_sma = prices.rolling(short_window).mean()
     long_sma = prices.rolling(long_window).mean()
-
-    # Signal: 1 when short above long, else 0
     signal = (short_sma > long_sma).astype(int)
-    # Act on YESTERDAY's signal (no look-ahead): shift forward by one day
     position = signal.shift(1).fillna(0)
 
     asset_returns = prices.pct_change().fillna(0.0)
-    # We earn the asset's return only on days we held a position
-    strategy_returns = position * asset_returns
-    return (1 + strategy_returns).cumprod()
+
+    gross = (1 + position * asset_returns).cumprod()
+    net = apply_costs(position, asset_returns, fee_bps, slippage_bps)
+    return {"gross": gross, "net": net}
