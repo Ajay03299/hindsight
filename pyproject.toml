@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hindsight"
+version = "0.1.0"
+description = "Rigorous, leak-aware reimplementation of multi-agent LLM trading on crypto"
+requires-python = ">=3.11"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
