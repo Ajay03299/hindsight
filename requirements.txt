@@ -1,0 +1,11 @@
+# Data
+ccxt
+pandas
+numpy
+
+# Notebooks / exploration
+jupyter
+matplotlib
+
+# Testing
+pytest

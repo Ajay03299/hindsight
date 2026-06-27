@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data (too big / regenerable — never commit raw data)
+data/
+*.csv
+*.parquet
+
+# LLM cache
+cache/
+
+# Secrets
+.env
+*.key
+
+# OS / editor
+.DS_Store
+.vscode/
