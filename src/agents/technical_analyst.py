@@ -16,9 +16,8 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 
-import ollama
-
 from src.data.feed import PointInTimeFeed
+from src.agents.llm_cache import cached_chat
 from src.agents import indicators
 
 MODEL = "qwen2.5:7b"
@@ -77,16 +76,13 @@ def analyze(symbol: str, as_of: str, feed: PointInTimeFeed | None = None) -> Ana
     snap = indicators.snapshot(history["close"])
     user_prompt = _build_user_prompt(symbol, as_of, snap)
 
-    response = ollama.chat(
+    raw = cached_chat(
         model=MODEL,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_prompt},
-        ],
-        format="json",       # ask Ollama to constrain output to valid JSON
+        system=SYSTEM_PROMPT,
+        user=user_prompt,
         options={"temperature": 0.0},  # deterministic -> reproducible
+        use_json=True,
     )
-    raw = response["message"]["content"]
 
     try:
         parsed = json.loads(raw)
