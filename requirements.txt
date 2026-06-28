@@ -9,3 +9,6 @@ matplotlib
 
 # Testing
 pytest
+
+# LLM (local, free via Ollama)
+ollama
