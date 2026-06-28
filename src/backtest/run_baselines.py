@@ -71,8 +71,8 @@ def main() -> None:
     print("=" * 80)
     print(df.to_string())
     print("=" * 80)
-    print("\nReminder: these are GROSS of transaction costs (we add costs next).")
-
+    print("\nNote: SMA shown gross and net of costs (10bps fee + 5bps slippage per trade).")
+    print("Buy-and-hold trades ~once, so its cost impact is negligible and omitted.")
     # ---- Save equity-curve chart ----
     Path("notebooks").mkdir(exist_ok=True)
     plt.figure(figsize=(12, 6))
