@@ -31,3 +31,30 @@ from the multi-agent architecture.
 This is the central result: a faithfully-built multi-agent LLM trader, evaluated
 honestly, shows **no significant edge over random** — the question the original
 paper never asked.
+
+## Alpha-decay / leakage test (early vs. recent window)
+
+Compared the agent's edge over random in an early window (2023-01 to 2024-06,
+likely seen in training, bull market) vs. a recent window (2025-09 to 2026-06,
+likely unseen, bear market):
+
+| Symbol | Early (seen) | Recent (unseen) |
+|---|---|---|
+| BTC | beats 68.0% of random | beats 50.5% (no edge) |
+| ETH | beats 58.0% of random | beats 15.5% (no edge) |
+
+**What this supports:** on recent, likely-unseen data the agent shows **no edge
+over random** (both at or below chance).
+
+**Honest caveat:** the recent window is a *down* market while the early window
+is a *bull* market. Because the percentile-vs-random measure is not symmetric
+across regimes, this does **not** cleanly isolate a memorization effect — it is
+*suggestive*, not conclusive. A cleaner future test would compare two windows
+of the *same* regime (e.g. the 2022 bear vs. a recent bear). Model training
+cutoffs are also not published precisely, limiting how cleanly "seen" vs
+"unseen" can be defined.
+
+**Combined with the null test**, the overall picture is consistent and modest:
+a faithfully-built multi-agent LLM trader, evaluated honestly, shows no
+statistically significant edge over chance — and certainly none that survives
+on recent data.

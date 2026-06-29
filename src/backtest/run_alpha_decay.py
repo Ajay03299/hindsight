@@ -67,16 +67,19 @@ def main() -> None:
     for sym in SYMBOLS:
         early = results[sym]["early (likely seen)"]["percentile"]
         recent = results[sym]["recent (likely unseen)"]["percentile"]
-        decay = early - recent
+        change = early - recent
+        early_r = results[sym]["early (likely seen)"]
+        recent_r = results[sym]["recent (likely unseen)"]
         print(f"{sym}: early {early:.1f}%  ->  recent {recent:.1f}%   "
-              f"(change: {decay:+.1f} pts)")
-        if decay > 20:
-            print("    Edge DECAYED on likely-unseen data — consistent with memorization.")
-        elif abs(decay) <= 20:
-            print("    Edge roughly STABLE across windows — no clear decay signal.")
-        else:
-            print("    Edge INCREASED on recent data — inconsistent with memorization.")
-
+              f"(change: {change:+.1f} pts)")
+        print(f"    early window Sharpe {early_r['agent_sharpe']:+.2f} (bull), "
+              f"recent window Sharpe {recent_r['agent_sharpe']:+.2f}")
+        if recent_r["agent_sharpe"] < 0:
+            print("    CAUTION: recent window is a DOWN market — percentile-vs-random")
+            print("    is not regime-symmetric, so this does NOT cleanly isolate")
+            print("    memorization. Reported as suggestive only. See RESULTS.md.")
+        if recent <= 55:
+            print("    Net: agent shows NO edge over random on recent (unseen) data.")
     # ---- Chart: percentile by window, per symbol ----
     Path("notebooks").mkdir(exist_ok=True)
     fig, ax = plt.subplots(figsize=(9, 5))
