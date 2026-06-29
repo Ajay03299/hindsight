@@ -60,27 +60,22 @@ def run_debate(symbol: str, as_of: str, reports: list[AnalystReport],
 
 TRADER_SYSTEM = """You are the trader at a trading firm. You have read your
 analysts' reports and a debate between a bullish and a bearish researcher. Your
-job is to commit to ONE concrete decision for the asset. You must decide, not
-hedge endlessly — but HOLD is a legitimate choice when conviction is genuinely
-low.
+job is to set ONE number: your target position in the asset.
 
-Decision meanings:
-- BUY: open or increase a long position (you expect the price to rise).
-- SELL: close/avoid the position (you expect the price to fall or stall).
-- HOLD: maintain current stance with low conviction either way.
+target_position is a float from 0.0 to 1.0:
+- 0.0  = fully in cash (you expect the price to fall or want no exposure)
+- 0.5  = neutral / moderate conviction
+- 1.0  = fully invested long (you strongly expect the price to rise)
 
-Set target_position between 0.0 (fully in cash) and 1.0 (fully invested long),
-reflecting your conviction. BUY implies a higher target_position, SELL implies
-near 0.0.
+Choose the number that reflects your honest conviction after weighing both
+sides. Higher means more bullish, lower means more bearish.
 
 Respond ONLY with a JSON object of this exact shape:
 {
-  "action": "BUY" | "SELL" | "HOLD",
   "target_position": <float 0.0 to 1.0>,
-  "rationale": "<2-4 sentences explaining the decision, weighing both sides>"
+  "rationale": "<2-4 sentences explaining the number, weighing both sides>"
 }
 Base everything ONLY on the provided reports and debate. Invent nothing."""
-
 
 def _format_debate(transcript: DebateTranscript) -> str:
     out = []
@@ -114,15 +109,22 @@ def decide(symbol: str, as_of: str, reports: list[AnalystReport],
                       options={"temperature": 0.0}, use_json=True)
     try:
         parsed = json.loads(raw)
-        action = str(parsed.get("action", "HOLD")).upper()
-        target = float(parsed.get("target_position", 0.0))
+        target = float(parsed.get("target_position", 0.5))
         rationale = str(parsed.get("rationale", ""))
         target = max(0.0, min(1.0, target))  # clamp to [0,1]
     except (json.JSONDecodeError, ValueError):
-        action, target, rationale = "HOLD", 0.0, f"Unparseable: {raw[:200]}"
+        target, rationale = 0.5, f"Unparseable: {raw[:200]}"
+
+    # Derive a human-readable label FROM the position, so they can never
+    # contradict each other. The position is the single source of truth.
+    if target >= 0.6:
+        action = "BUY"
+    elif target <= 0.4:
+        action = "SELL"
+    else:
+        action = "HOLD"
 
     return TradeDecision(symbol, as_of, action, target, rationale, transcript)
-
 
 if __name__ == "__main__":
     from src.agents import technical_analyst, momentum_analyst
