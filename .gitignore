@@ -9,8 +9,11 @@ venv/
 
 # Data (too big / regenerable — never commit raw data)
 data/
-*.csv
+# Raw data files (large, regenerable) — but allow results CSVs in notebooks/
+data/*.csv
+data/*.parquet
 *.parquet
+!notebooks/*.csv
 
 # LLM cache
 cache/
