@@ -58,3 +58,28 @@ cutoffs are also not published precisely, limiting how cleanly "seen" vs
 a faithfully-built multi-agent LLM trader, evaluated honestly, shows no
 statistically significant edge over chance — and certainly none that survives
 on recent data.
+
+## Regime-controlled leakage test (bear vs. bear) — the clean version
+
+To remove the bull/bear confound, compared the agent's edge over random in two
+*bear* markets: 2022 (likely seen in training) and recent 2025-26 (likely unseen).
+
+| Symbol | 2022 bear (seen) | recent bear (unseen) |
+|---|---|---|
+| BTC | beats 33.5% of random | beats 50.5% of random |
+| ETH | beats 31.0% of random | beats 15.5% of random |
+
+**Finding:** the agent beats fewer than ~50% of random agents in *every* bear
+window — i.e. it performs at or below chance regardless of regime. Crucially,
+it is NOT better on the likely-seen 2022 data than on unseen data, so there is
+**no memorization signature.**
+
+## Unified conclusion
+
+Across all three experiments the story is consistent: the multi-agent LLM
+trader shows **no statistically significant edge over random**, from skill or
+from memorization. Its strong bull-market Sharpe (~1.7) reflects crypto
+*beta* (being long while the market rose) — a randomized agent captured the
+same. Stripped of beta in bear markets, no edge remains. This stands in sharp
+contrast to the original paper's claimed Sharpe of 8.2 over a 3-month,
+bull-only window with no null baseline and no cost accounting.
