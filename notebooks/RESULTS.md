@@ -83,3 +83,21 @@ from memorization. Its strong bull-market Sharpe (~1.7) reflects crypto
 same. Stripped of beta in bear markets, no edge remains. This stands in sharp
 contrast to the original paper's claimed Sharpe of 8.2 over a 3-month,
 bull-only window with no null baseline and no cost accounting.
+
+## Ablation: does the multi-agent debate add value?
+
+Compared the full system (2 analysts + 2-round bull/bear debate + trader
+synthesis, ~6 LLM calls/decision) against a minimal agent (1 analyst's stance
+mapped directly to a position, 1 LLM call/decision):
+
+| Strategy | Cum. Return | Sharpe | Max DD | Beats random |
+|---|---|---|---|---|
+| Full debate BTC | 202.1% | 1.711 | -21.6% | 76.5% |
+| Minimal BTC | 199.7% | 1.648 | -22.1% | 66.0% |
+| Full debate ETH | 83.1% | 0.877 | -36.2% | 73.5% |
+| Minimal ETH | 81.8% | 0.867 | -37.9% | 73.5% |
+
+**Finding:** the full debate architecture matches a single analyst within noise
+(~0.06 Sharpe on BTC, ~0.01 on ETH) for ~6x the compute. The multi-agent
+debate — the original paper's central contribution — adds **no measurable
+performance** in this setup.
