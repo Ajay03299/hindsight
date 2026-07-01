@@ -30,7 +30,7 @@ to the scrutiny the original version lacked. The central question:
 
 ## Status
 
-🚧 Early development. Building in stages: data layer → baselines → agent system
+ Early development. Building in stages: data layer → baselines → agent system
 → leak-audit experiment → writeup.
 
 ## Stack
