@@ -86,6 +86,5 @@ The technical skills here - multi-agent orchestration, event-driven backtesting,
 
 Everything is open and free. See the [README](README.md) for one-command reproduction. All results, caches, and the code for every test above are in this repo.
 
---
 
 *Built with Python, CCXT, Ollama (Qwen2.5-7B, local), and a healthy distrust of my own backtests.*
