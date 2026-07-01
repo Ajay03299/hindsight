@@ -17,9 +17,7 @@ from src.evaluation.significance import (
     empirical_p_value, probabilistic_sharpe_ratio, deflated_sharpe_ratio,
 )
 
-SYMBOLS = ["BTC/USDT", "ETH/USDT"]
-START, END = "2023-01-01", "2025-06-01"
-N_RUNS = 200
+from src.config import SYMBOLS, START, END, N_RUNS
 
 
 def main():

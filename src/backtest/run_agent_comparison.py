@@ -24,9 +24,7 @@ from src.backtest.agent_backtest import run_agent_backtest
 from src.evaluation import metrics
 
 # Two coins for the first full run to keep it tractable; add more later.
-SYMBOLS = ["BTC/USDT", "ETH/USDT"]
-START = "2023-01-01"
-END = "2025-06-01"
+from src.config import SYMBOLS, START, END
 REBALANCE_DAYS = 7
 
 

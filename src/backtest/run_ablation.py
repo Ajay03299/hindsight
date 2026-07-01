@@ -16,8 +16,7 @@ from src.backtest.minimal_agent import run_minimal_backtest
 from src.backtest.random_agent import random_distribution, percentile_of
 from src.evaluation import metrics
 
-SYMBOLS = ["BTC/USDT", "ETH/USDT"]
-START, END = "2023-01-01", "2025-06-01"
+from src.config import SYMBOLS, START, END
 
 
 def main():
