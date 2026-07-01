@@ -1,6 +1,6 @@
 # Hindsight
 
-**A rigorous, leak-aware reimplementation of multi-agent LLM trading - does the edge survive once you control for what the model already knew?**
+**A rigorous reimplementation of multi-agent LLM trading - does the edge survive once you control for what the model already knew?**
 
 ## Motivation
 
