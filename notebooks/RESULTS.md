@@ -115,3 +115,34 @@ Sharpe only benchmarks against zero, which a bull market clears trivially. The
 empirical p-value is the stricter test: it compares the agent to random agents
 that *also* captured that beta, and there the edge is **not significant**
 (p ≈ 0.24). The Sharpe measures market exposure, not alpha.
+
+## Four-coin robustness (BTC, ETH, SOL, BNB)
+
+Extending all tests to four coins confirms the pattern holds — it was not an
+artifact of two hand-picked assets.
+
+**Significance (empirical p-value vs random null):**
+
+| Symbol | Agent Sharpe | p-value | Significant? |
+|---|---|---|---|
+| BTC | 1.711 | 0.239 | No |
+| ETH | 0.877 | 0.269 | No |
+| SOL | 1.497 | 0.443 | No |
+| BNB | 1.090 | 0.264 | No |
+
+No coin shows a statistically significant edge over a beta-matched random agent.
+(BNB's apparent edge over buy-and-hold in the returns table is not significant.)
+
+**Ablation (full debate vs single analyst), Sharpe:**
+
+| Symbol | Full (debate) | Minimal (1 analyst) |
+|---|---|---|
+| BTC | 1.711 | 1.648 |
+| ETH | 0.877 | 0.867 |
+| SOL | 1.497 | **1.602** |
+| BNB | **1.090** | 0.774 |
+
+Across four coins the debate helps on BNB, *hurts* on SOL, and is a wash on
+BTC/ETH — **no consistent direction.** The multi-agent debate adds variance,
+not value, for ~6x the compute. (Note: the cleaner two-coin result suggested
+mere redundancy; the fuller four-coin picture shows it is actively noisy.)
