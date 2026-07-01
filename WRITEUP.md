@@ -25,13 +25,13 @@ A reimplementation of the multi-agent architecture, on daily crypto data (BTC, E
 - **A trader** synthesizes the debate into a target position.
 - **An event-driven backtester** walks forward through time — structurally incapable of look-ahead, because on each date it only ever sees data *before* that date.
 
-Everything runs on a **local open-weight LLM** (Qwen2.5-7B via Ollama) — free, no API bills, no GPU beyond a MacBook — with every LLM call cached to disk so the entire multi-year backtest reproduces in seconds.
+Everything runs on a **local open-weight LLM** (Qwen2.5-7B via Ollama) - free, no API bills, no GPU beyond a MacBook - with every LLM call cached to disk so the entire multi-year backtest reproduces in seconds.
 
 Then I ran the four tests the original paper didn't.
 
 ## Test 1: Does it beat buy-and-hold?
 
-No. Across all four coins, the agent **underperformed lazy buy-and-hold on returns** — sometimes dramatically (on SOL, buy-and-hold made 1,478% vs the agent's 403%). Its *only* consistent benefit was lower risk: smaller drawdowns and lower volatility on every coin.
+No. Across all four coins, the agent **underperformed lazy buy-and-hold on returns** - sometimes dramatically (on SOL, buy-and-hold made 1,478% vs the agent's 403%). Its *only* consistent benefit was lower risk: smaller drawdowns and lower volatility on every coin.
 
 So it's not a money machine. At best it's a risk-reducer that costs you upside.
 
