@@ -1,12 +1,12 @@
 # Does Multi-Agent LLM Trading Actually Work? A Rigorous Reimplementation
 
-*Or: how I rebuilt a paper claiming a Sharpe ratio of 8, and found the edge was beta in disguise.*
+I rebuilt a paper claiming a Sharpe ratio of 8, and found the edge was beta in disguise.
 
 ## The claim that started it
 
-In late 2024, a paper called *TradingAgents* (arXiv:2412.20138) made the rounds: a team of LLM "agents" — analysts, a bull and bear who debate, a trader, a risk manager — collaborating to trade stocks, reporting a **Sharpe ratio above 8** over a three-month backtest.
+In late 2024, a paper called *TradingAgents* (arXiv:2412.20138) made the rounds: a team of LLM "agents" - analysts, a bull and bear who debate, a trader, a risk manager - collaborating to trade stocks, reporting a **Sharpe ratio above 8** over a 3 month backtest.
 
-For context, a Sharpe ratio above 3 is considered excellent and is rare even at elite quant funds. Renaissance Technologies, the most successful quant fund in history, is estimated to run around 2 on its public-facing funds. A Sharpe of 8 from a few LLM prompts should trigger skepticism, not a retweet.
+For context, a Sharpe ratio above 3 is considered amazing and is rare even at elite quant funds. Renaissance Technologies, the most successful quant fund in history, is estimated to run around 2 on its public-facing funds. A Sharpe of 8 from a few LLM prompts should trigger skepticism.
 
 The paper had three tells that its result might be an artifact rather than a discovery:
 
@@ -18,7 +18,7 @@ So I rebuilt it — on crypto, with the rigor the original skipped — to answer
 
 ## What I built
 
-A faithful reimplementation of the multi-agent architecture, on daily crypto data (BTC, ETH, SOL, BNB), 2023–2025:
+A reimplementation of the multi-agent architecture, on daily crypto data (BTC, ETH, SOL, BNB), 2023–2025:
 
 - **Analysts** read a point-in-time snapshot of technical and momentum indicators.
 - **A bull and a bear researcher** build opposing cases and debate for two rounds.
@@ -46,7 +46,7 @@ This is the test almost no LLM-trading paper runs. I built a **randomized agent*
 | SOL | 1.497 | 56.0% | 0.443 |
 | BNB | 1.090 | 74.0% | 0.264 |
 
-The agent's Sharpe of 1.7 on BTC *sounds* good — until you see that random agents averaged 1.5, and one in four random runs beat the LLM. **On no coin was the edge statistically significant** (all p-values far above 0.05). The Deflated Sharpe Ratio told the same story: the returns are reliably positive, but only because *being long crypto in a bull market* is reliably positive. That's beta, not alpha. A monkey captured it too.
+The agent's Sharpe of 1.7 on BTC *sounds* good until you see that random agents averaged 1.5, and one in four random runs beat the LLM. **On no coin was the edge statistically significant** (all p-values far above 0.05). The Deflated Sharpe Ratio told the same story: the returns are reliably positive, but only because *being long crypto in a bull market* is reliably positive. That's beta, not alpha. A monkey captured it too.
 
 ## Test 3: Did it just memorize the past?
 
