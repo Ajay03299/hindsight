@@ -1,19 +1,18 @@
 # Hindsight
 
-**A rigorous, leak-aware reimplementation of multi-agent LLM trading — does the edge survive once you control for what the model already knew?**
+**A rigorous, leak-aware reimplementation of multi-agent LLM trading - does the edge survive once you control for what the model already knew?**
 
 ## Motivation
 
 Recent work (e.g. *TradingAgents*, arXiv:2412.20138) reports spectacular results
-from multi-agent LLM trading systems — Sharpe ratios above 8 over a three-month
-backtest. Numbers like that should invite suspicion, not excitement: sustained
+from multi-agent LLM trading systems - Sharpe ratios above 8 over a three-month
+backtest. Numbers like that should arouse suspicion, not excitement: sustained
 Sharpe ratios above 3 are rare even at elite quant funds.
 
 This project reimplements the multi-agent idea on crypto markets and subjects it
-to the scrutiny the original lacked. The central question:
+to the scrutiny the original version lacked. The central question:
 
-> When an LLM "analyzes" a past period, is it reasoning — or just recalling an
-> outcome it already saw during training?
+> When an LLM "analyzes" a past period, is it reasoning or just recalling an outcome it already saw during training?
 
 ## What this project does differently
 
