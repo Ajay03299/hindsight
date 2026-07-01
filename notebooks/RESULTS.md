@@ -101,3 +101,17 @@ mapped directly to a position, 1 LLM call/decision):
 (~0.06 Sharpe on BTC, ~0.01 on ETH) for ~6x the compute. The multi-agent
 debate — the original paper's central contribution — adds **no measurable
 performance** in this setup.
+
+## Formal significance (empirical p-value + Deflated Sharpe)
+
+| Symbol | Agent Sharpe | Empirical p (vs random) | Deflated Sharpe |
+|---|---|---|---|
+| BTC | 1.711 | 0.239 (not significant) | 0.925 |
+| ETH | 0.877 | 0.269 (not significant) | 0.513 |
+
+**Reading these together:** the agent's returns are reliably positive (high DSR /
+probabilistic Sharpe) — but that is **crypto beta**, not skill. The Deflated
+Sharpe only benchmarks against zero, which a bull market clears trivially. The
+empirical p-value is the stricter test: it compares the agent to random agents
+that *also* captured that beta, and there the edge is **not significant**
+(p ≈ 0.24). The Sharpe measures market exposure, not alpha.

@@ -49,9 +49,11 @@ def main():
         print(f"Probabilistic Sharpe (P[SR>0]):     {psr:.3f}")
         print(f"Expected max Sharpe under null:     "
               f"{dsr['expected_max_sharpe_under_null']:.3f}")
-        print(f"Deflated Sharpe Ratio:              {dsr['deflated_sharpe_ratio']:.3f}"
-              f"   ({'real edge likely' if dsr['deflated_sharpe_ratio'] > 0.95 else 'consistent with luck'})")
-
+        print(f"Deflated Sharpe Ratio (P[SR>max]):  {dsr['deflated_sharpe_ratio']:.3f}")
+        print(f"  Note: DSR benchmarks vs zero/luck-max; the empirical p-value above")
+        print(f"  is the stricter test because random agents ALSO capture market beta.")
+        if p >= 0.05:
+            print(f"  Verdict: no edge over a beta-matched random agent (p={p:.3f}).")
 
 if __name__ == "__main__":
     main()
